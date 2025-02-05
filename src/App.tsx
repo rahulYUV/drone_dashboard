@@ -4,6 +4,7 @@ import { MapComponent } from "./components/MapComponent";
 import { Dashboard } from "./components/Dashboard";
 import { ThemeToggle } from "./components/ThemeToggle";
 import { Navbar } from "./components/Navbar";
+import { Compass } from "./components/Compass"; // Import Compass Component
 import { connectSocket, DroneData } from "./lib/socket";
 import { motion } from "framer-motion";
 
@@ -81,6 +82,11 @@ function App() {
             </div>
             <div className="lg:col-span-1">
               <Dashboard data={droneData} hasNewData={hasNewData} />
+
+              {/* Compass Component - Added Here */}
+              <div className="mt-6 flex justify-center">
+                <Compass heading={droneData.heading} />
+              </div>
             </div>
           </div>
         </main>
