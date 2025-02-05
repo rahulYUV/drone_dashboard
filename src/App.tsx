@@ -1,11 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Bone as Drone } from 'lucide-react';
-import { MapComponent } from './components/MapComponent';
-import { Dashboard } from './components/Dashboard';
-import { ThemeToggle } from './components/ThemeToggle';
-import { Navbar } from './components/Navbar';
-import { connectSocket, DroneData } from './lib/socket';
-import { motion } from 'framer-motion';
+import { useState, useEffect } from "react";
+import { Bone as Drone } from "lucide-react";
+import { MapComponent } from "./components/MapComponent";
+import { Dashboard } from "./components/Dashboard";
+import { ThemeToggle } from "./components/ThemeToggle";
+import { Navbar } from "./components/Navbar";
+import { connectSocket, DroneData } from "./lib/socket";
+import { motion } from "framer-motion";
 
 const initialDroneData: DroneData = {
   latitude: 18.51957000,
@@ -13,15 +13,20 @@ const initialDroneData: DroneData = {
   altitude: 0,
   speed: 0,
   battery: 100,
-  heading: 0,         // Add missing properties
-  satellites: 0,      // Add missing properties
-  signalStrength: 0   // Add missing properties
+  heading: 0,
+  satellites: 0,
+  signalStrength: 0,
 };
 
 function App() {
   const [droneData, setDroneData] = useState<DroneData>(initialDroneData);
   const [isDark, setIsDark] = useState(false);
   const [hasNewData, setHasNewData] = useState(false);
+
+  useEffect(() => {
+    // Set the page title
+    document.title = "Drone Tracker :: Dashboard";
+  }, []);
 
   useEffect(() => {
     const cleanup = connectSocket((data) => {
@@ -35,16 +40,16 @@ function App() {
 
   useEffect(() => {
     if (isDark) {
-      document.documentElement.classList.add('dark');
+      document.documentElement.classList.add("dark");
     } else {
-      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.remove("dark");
     }
   }, [isDark]);
 
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-gray-900 transition-colors duration-200">
       <Navbar />
-      
+
       <div className="ml-[72px] lg:ml-[240px]">
         <nav className="bg-white dark:bg-gray-800 shadow-lg">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -55,7 +60,9 @@ function App() {
                 animate={{ opacity: 1, x: 0 }}
               >
                 <Drone className="h-8 w-8 text-blue-600 dark:text-blue-400" />
-                <span className="ml-2 text-xl font-bold dark:text-white">Drone Tracker</span>
+                <span className="ml-2 text-xl font-bold dark:text-white">
+                  Drone Tracker
+                </span>
               </motion.div>
               <ThemeToggle isDark={isDark} onToggle={() => setIsDark(!isDark)} />
             </div>
